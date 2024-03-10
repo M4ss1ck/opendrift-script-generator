@@ -66,7 +66,7 @@ o.seed_elements(lon, lat, radius=${params.radius}, number=${params.particles}*${
   })
 o.run(end_time=end_time, time_step=${params.timeStep}, time_step_output=${
     params.timeStep
-  }, outfile='Run_${scriptName}.nc')
+  }${params.export ? `, outfile='Run_${scriptName}.nc'` : ""})
 
 #%%
 # Print and plot results

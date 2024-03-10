@@ -9,6 +9,12 @@ const argv = yargs
     choices: ["OceanDrift", "PlastDrift"],
     default: "OceanDrift",
   })
+  .option("export", {
+    alias: "e",
+    description: "Wheter to export the results to a file",
+    type: "boolean",
+    default: true,
+  })
   .option("Name", {
     alias: "n",
     description: "Name of the area of interest",
