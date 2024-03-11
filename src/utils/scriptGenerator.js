@@ -66,7 +66,15 @@ o.seed_elements(lon, lat, radius=${params.radius}, number=${params.particles}*${
   })
 o.run(end_time=end_time, time_step=${params.timeStep}, time_step_output=${
     params.timeStep
-  }${params.export ? `, outfile='Run_${scriptName}.nc'` : ""})
+  }${params.export ? `, outfile='Run_${scriptName}.nc'` : ""}${
+    params.bufferLength ? `, export_buffer_length=${params.bufferLength}` : ""
+  }${
+    params.exportVariables && params.exportVariables.length > 0
+      ? `, export_variables=${params.exportVariables
+          .map((v) => `"${v}"`)
+          .join(",")}`
+      : ""
+  })
 
 #%%
 # Print and plot results
@@ -85,3 +93,5 @@ o.plot(fast=True, filename='Plot_${scriptName}.png')
 module.exports = {
   generateScript,
 };
+
+// handle export_buffer_length and export_variables

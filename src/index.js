@@ -15,6 +15,18 @@ const argv = yargs
     type: "boolean",
     default: true,
   })
+  .option("bufferLength", {
+    alias: "bl",
+    description: "export_buffer_length value, to reduce memory consumption",
+    type: "number",
+    default: 100,
+  })
+  .option("exportVariables", {
+    alias: "ev",
+    description: "export_variables array, to reduce memory consumption",
+    type: "array",
+    default: [],
+  })
   .option("Name", {
     alias: "n",
     description: "Name of the area of interest",
