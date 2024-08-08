@@ -20,10 +20,9 @@ function generateMonthName(month) {
 }
 
 function generateScript(params) {
-  console.log(params);
   const scriptName = `${params.model}_${params.Name}_${generateMonthName(
     params.month
-  )}_${params.year}_z${params.z}_${params.durationSeed}days${
+  )}_${params.year}_z${params.z}_${params.duration}days${
     params.V ? "_verticalMixing" : ""
   }_${Date.now()}`;
   const scriptContent = `#!/usr/bin/env python
@@ -44,7 +43,7 @@ ${
 
 o = ${params.model}(loglevel=20, logfile='simulation.log')
 o.add_readers_from_list([
-  ${params.readers.map((url) => `"${url}"`).join(",\n")}
+  ${params.readers.map((url) => `"${url}"`).join(",\n  ")}
 ])
 
 ${params.verticalMixing ? "o.set_config('drift:vertical_mixing', True)" : ""}
@@ -70,9 +69,9 @@ o.run(end_time=end_time, time_step=${params.timeStep}, time_step_output=${
     params.bufferLength ? `, export_buffer_length=${params.bufferLength}` : ""
   }${
     params.exportVariables && params.exportVariables.length > 0
-      ? `, export_variables=${params.exportVariables
+      ? `, export_variables=[${params.exportVariables
           .map((v) => `"${v}"`)
-          .join(",")}`
+          .join(",")}]`
       : ""
   })
 
@@ -88,6 +87,7 @@ o.plot(fast=True, filename='Plot_${scriptName}.png')
     `${scriptName}.py`
   );
   fs.writeFileSync(scriptPath, scriptContent);
+  console.log(`Script "${scriptName}" generated!`);
 }
 
 module.exports = {
