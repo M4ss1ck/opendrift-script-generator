@@ -41,7 +41,7 @@ ${
     : "from opendrift.models.plastdrift import PlastDrift"
 }
 
-o = ${params.model}(loglevel=20, logfile='simulation.log')
+o = ${params.model}(loglevel=20, logfile='${scriptName}.log')
 o.add_readers_from_list([
   ${params.readers.map((url) => `"${url}"`).join(",\n  ")}
 ])

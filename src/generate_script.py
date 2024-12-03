@@ -20,7 +20,7 @@ def generate_script(params):
 from datetime import timedelta, datetime
 from opendrift.readers import reader_netCDF_CF_generic
 {'from opendrift.models.oceandrift import OceanDrift' if params.model == 'OceanDrift' else 'from opendrift.models.plastdrift import PlastDrift'}
-o = {params.model}(loglevel=20, logfile='simulation.log')
+o = {params.model}(loglevel=20, logfile='{script_name}.log')
 o.add_readers_from_list([
   {list_of_readers}
 ])
